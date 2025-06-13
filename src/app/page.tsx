@@ -10,7 +10,7 @@ export default function Home() {
                 <div className="bg-[url(/images/abstract/abstract-1.webp)] bg-cover bg-bottom bg-no-repeat rounded-[0.8rem] overflow-hidden">
                     <div className="size-full p-[1.5rem] bg-primary/70">
                         <p className="text-[2rem] font-thin font-poppins text-secondary/90">
-                            Fun & real time graph
+                            Fun & real time data
                             <br />
                             with Hash
                             <span className="text-accent/80">Dash</span>
