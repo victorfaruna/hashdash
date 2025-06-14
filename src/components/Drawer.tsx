@@ -174,7 +174,7 @@ export default function Drawer() {
                     </li>
                 ))}
                 <button
-                    className={`px-[1rem] w-[80%] py-[0.5rem] cursor-pointer bg-accent rounded-[0.5rem] text-primary font-[500] cuursor-pointer ${
+                    className={`px-[1rem] w-[70%] py-[0.5rem] cursor-pointer bg-accent rounded-[0.5rem] text-primary font-[500] cuursor-pointer ${
                         !isOpen && "hidden"
                     }`}
                 >
