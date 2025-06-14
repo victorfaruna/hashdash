@@ -5,6 +5,8 @@
     --secondary: lightgrey;
     --tetiary: rgb(175, 175, 236);
     --accent: lightgreen;
+    --accent-2: hotpink;
+    --accent-3: gold;
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -17,6 +19,8 @@
     --color-tetiary: var(--tetiary);
     --font-orbitron: var(--font-orbitron);
     --font-poppins: var(--font-poppins);
+    --font-montserrat: var(--font-montserrat);
+    --font-edu: var(--font-edu);
     --color-accent: var(--accent);
 }
 

@@ -9,7 +9,7 @@ export default function Home() {
             <div className="outer px-[var(--main-padding)]">
                 <div className="bg-[url(/images/abstract/abstract-1.webp)] bg-cover bg-bottom bg-no-repeat rounded-[0.8rem] overflow-hidden">
                     <div className="size-full p-[1.5rem] bg-primary/80 flex justify-between">
-                        <p className="left text-[2rem] font-thin font-poppins text-secondary/90">
+                        <p className="left text-[2rem] font-edu font-[200] text-secondary/90">
                             Fun & real time data
                             <br />
                             with Hash
