@@ -21,6 +21,7 @@ const poppins = Poppins({
 
 const edu = Roboto_Flex({
     weight: ["300", "400", "500", "600", "700"],
+    subsets: ["latin"],
     variable: "--font-edu",
 });
 
