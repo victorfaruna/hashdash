@@ -1,17 +1,9 @@
 import type { Metadata } from "next";
-import {
-    Edu_AU_VIC_WA_NT_Arrows,
-    Edu_QLD_Beginner,
-    Edu_SA_Beginner,
-    Edu_TAS_Beginner,
-    Montserrat,
-    Orbitron,
-    Poppins,
-    Roboto_Flex,
-} from "next/font/google";
+import { Montserrat, Orbitron, Poppins, Roboto_Flex } from "next/font/google";
 import "./globals.css";
 import Drawer from "@/components/Drawer";
 import Header from "@/components/Header";
+import SolanaWallet from "@/providers/SolanaWallet";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -52,13 +44,16 @@ export default function RootLayout({
             <body
                 className={`${poppins.variable} ${orbitron.variable} ${montserrat.variable} ${edu.variable} flex [--main-padding:2rem] w-screen overflow-x-hidden `}
             >
-                <div className="flex-shrink-0">
-                    <Drawer />
-                </div>
-                <div className="flex-[1] overflow-x-hidden h-screen overflow-hidden">
-                    <Header />
-                    {children}
-                </div>
+                <SolanaWallet>
+                    <div className="flex-shrink-0">
+                        <Drawer />
+                    </div>
+                    <div className="flex-[1] overflow-x-hidden h-screen overflow-hidden">
+                        <Header />
+                        {children}
+                    </div>
+                </SolanaWallet>
+                <script src="../node_modules/flyonui/flyonui.js"></script>
             </body>
         </html>
     );

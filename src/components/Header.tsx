@@ -1,6 +1,30 @@
+"use client";
 import React from "react";
+import { useWalletModal } from "@solana/wallet-adapter-react-ui";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 export default function Header() {
+    const [isConnected, setIsConnected] = React.useState(false);
+    const { setVisible } = useWalletModal();
+    const { publicKey, disconnect } = useWallet();
+
+    React.useEffect(() => {
+        if (publicKey) {
+            setIsConnected(true);
+        } else {
+            setIsConnected(false);
+        }
+    }, [publicKey]);
+
+    //Connection button........
+    const handleConnect = () => {
+        if (isConnected) return;
+        setVisible(true);
+    };
+
+    const handleDisconnect = () => {
+        disconnect();
+    };
     return (
         <header className="h-[80px] flex-[1] flex items-center justify-between px-[var(--main-padding)] border-b border-secondary/10">
             <div className="left flex gap-[var(--main-padding)]">
@@ -54,9 +78,84 @@ export default function Header() {
                 <button className="py-[0.4rem] cursor-pointer px-[1rem] rounded-[0.5rem] bg-gradient-to-t from-accent/10 to-primary border border-accent/15 text-accent">
                     Create new coin
                 </button>
-                <button className="py-[0.4rem] cursor-pointer px-[1rem] rounded-[0.5rem] bg-accent text-primary border border-accent/15">
-                    Log in
-                </button>
+
+                {!isConnected && (
+                    <button
+                        onClick={handleConnect}
+                        className={`py-[0.4rem] cursor-pointer px-[1rem] rounded-[0.5rem] bg-accent text-primary border border-accent/15 flex items-center gap-2`}
+                    >
+                        Log in
+                    </button>
+                )}
+                {isConnected && (
+                    <div className={`dropdown dropdown-end`}>
+                        <button
+                            tabIndex={0}
+                            role="button"
+                            className={`py-[0.4rem] cursor-pointer px-[1rem] rounded-[0.5rem] bg-accent text-primary border border-accent/15 flex items-center gap-2`}
+                            popoverTarget="popover-1"
+                            style={
+                                {
+                                    anchorName: "--anchor-1",
+                                } as React.CSSProperties
+                            }
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth="1.5"
+                                stroke="currentColor"
+                                className="size-4"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="m21 7.5-2.25-1.313M21 7.5v2.25m0-2.25-2.25 1.313M3 7.5l2.25-1.313M3 7.5l2.25 1.313M3 7.5v2.25m9 3 2.25-1.313M12 12.75l-2.25-1.313M12 12.75V15m0 6.75 2.25-1.313M12 21.75V19.5m0 2.25-2.25-1.313m0-16.875L12 2.25l2.25 1.313M21 14.25v2.25l-2.25 1.313m-13.5 0L3 16.5v-2.25"
+                                />
+                            </svg>
+
+                            {publicKey?.toString().slice(0, 5) +
+                                " · · · " +
+                                publicKey?.toString().slice(-5)}
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth="2.5"
+                                stroke="currentColor"
+                                className="size-4"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                                />
+                            </svg>
+                        </button>
+                        <ul
+                            tabIndex={0}
+                            className={`dropdown-content flex flex-col gap-[1rem] items-end bg-primary rounded-[0.5rem] p-[1rem] border border-secondary/20 shadow-lg w-[200px] mt-[0.5rem]  ${
+                                !isConnected && "hidden"
+                            }`}
+                        >
+                            <li>
+                                <a>Profile</a>
+                            </li>
+                            <li>
+                                <a>My Wallet</a>
+                            </li>
+                            <div className="w-full border-b border-secondary/20"></div>
+                            <button
+                                onClick={handleDisconnect}
+                                className="text-accent-2 cursor-pointer"
+                            >
+                                Log Out
+                            </button>
+                        </ul>
+                    </div>
+                )}
             </div>
         </header>
     );

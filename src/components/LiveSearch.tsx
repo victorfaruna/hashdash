@@ -4,9 +4,17 @@ import React, { useRef, useState } from "react";
 export default function LiveSearch() {
     const [isResultsVisibile, setIsResultsVisible] = useState(false);
     const inputRef = useRef<any>(null);
+
+    const searchResultRef = useRef<any>(null);
     return (
         <div className="right self-end flex gap-[1rem]">
-            <div className="input-container relative w-[400px] h-[40px] rounded-[0.5rem] border border-secondary/30 bg-primary/60 flex items-center gap-[0.5rem] pl-[1rem]">
+            <div
+                onFocus={() => {
+                    searchResultRef.current?.focus();
+                    setIsResultsVisible(true);
+                }}
+                className="input-container relative w-[400px] h-[40px] rounded-[0.5rem] border border-secondary/30 bg-primary/60 flex items-center gap-[0.5rem] pl-[1rem]"
+            >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -23,8 +31,6 @@ export default function LiveSearch() {
                 </svg>
 
                 <input
-                    onFocus={() => setIsResultsVisible(true)}
-                    onBlur={() => setIsResultsVisible(false)}
                     ref={inputRef}
                     type="text"
                     className="size-full outline-none border-none"
@@ -32,6 +38,8 @@ export default function LiveSearch() {
                 />
 
                 <div
+                    ref={searchResultRef}
+                    onBlur={() => setIsResultsVisible(false)}
                     className={`results absolute top-[50px] left-0 z-[999] w-full bg-primary rounded-[0.5rem] h-[200px] border border-secondary/30 ${
                         !isResultsVisibile && "hidden"
                     }`}

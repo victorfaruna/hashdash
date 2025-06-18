@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@plugin "daisyui" {
+    exclude: rootscrollgutter, rootcolor;
+}
 
 :root {
     --primary: rgb(10, 10, 10);
@@ -22,6 +25,8 @@
     --font-montserrat: var(--font-montserrat);
     --font-edu: var(--font-edu);
     --color-accent: var(--accent);
+    --color-accent-2: var(--accent-2);
+    --color-accent-3: var(--accent-3);
 }
 
 body {
