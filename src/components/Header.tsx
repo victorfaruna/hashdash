@@ -2,6 +2,7 @@
 import React from "react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useWallet } from "@solana/wallet-adapter-react";
+import Link from "next/link";
 
 export default function Header() {
     const [isConnected, setIsConnected] = React.useState(false);
@@ -141,10 +142,10 @@ export default function Header() {
                             }`}
                         >
                             <li>
-                                <a>Profile</a>
+                                <Link href={"/"}>Profile</Link>
                             </li>
                             <li>
-                                <a>My Wallet</a>
+                                <Link href={"/"}>My Wallet</Link>
                             </li>
                             <div className="w-full border-b border-secondary/20"></div>
                             <button

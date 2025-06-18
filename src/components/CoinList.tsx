@@ -138,11 +138,21 @@ export default function CoinList() {
             <div className="heading">
                 <div className="left flex gap-[2rem] items-center">
                     <div className="div flex items-center gap-[1rem]">
-                        <Switch />
+                        {/* <Switch /> */}
+                        <input
+                            type="checkbox"
+                            defaultChecked={false}
+                            className="toggle"
+                        />
                         <p>Show Animations</p>
                     </div>
                     <div className="div flex items-center gap-[1rem]">
-                        <Switch />
+                        {/* <Switch /> */}
+                        <input
+                            type="checkbox"
+                            defaultChecked={false}
+                            className="toggle"
+                        />
                         <p>Include NSFW</p>
                     </div>
                 </div>
