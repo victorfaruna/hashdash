@@ -141,13 +141,14 @@ export default function Drawer() {
             }`}
         >
             <div className="top px-[2rem] h-[80px] border-b border-secondary/10 flex justify-between items-center">
-                <p
+                <Link
+                    href={"/"}
                     className={`text-[1rem] transition-all duration-[0.5s] ease-in-out ${
                         !isOpen && "hidden"
                     }`}
                 >
                     Hash<span className="text-accent/70">Dash</span>
-                </p>
+                </Link>
                 <button
                     onClick={handleClick}
                     className="cursor-pointer"

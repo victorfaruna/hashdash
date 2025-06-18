@@ -27,7 +27,7 @@ export default function Header() {
         disconnect();
     };
     return (
-        <header className="h-[80px] flex-[1] flex items-center justify-between px-[var(--main-padding)] border-b border-secondary/10">
+        <header className="h-[80px] w-full flex-shrink-0 flex items-center justify-between px-[var(--main-padding)] border-b border-secondary/10">
             <div className="left flex gap-[var(--main-padding)]">
                 <div className="item border border-[gold]/20 p-[0.5rem] rounded-[0.5rem] flex items-center gap-[1rem]">
                     <div className="ico size-[1.5rem] rounded-sm bg-[gold]/20 flex items-center justify-center">
@@ -137,7 +137,7 @@ export default function Header() {
                         </button>
                         <ul
                             tabIndex={0}
-                            className={`dropdown-content flex flex-col gap-[1rem] items-end bg-primary rounded-[0.5rem] p-[1rem] border border-secondary/20 shadow-lg w-[200px] mt-[0.5rem]  ${
+                            className={`dropdown-content flex flex-col gap-[1rem] items-end bg-primary rounded-[0.5rem] p-[1rem] border border-secondary/30 shadow-lg w-[200px] mt-[0.5rem]  ${
                                 !isConnected && "hidden"
                             }`}
                         >

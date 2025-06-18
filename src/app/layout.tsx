@@ -41,20 +41,19 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body
-                className={`${poppins.variable} ${orbitron.variable} ${montserrat.variable} ${edu.variable} flex [--main-padding:2rem] w-screen overflow-x-hidden `}
-            >
-                <SolanaWallet>
+            <SolanaWallet>
+                <body
+                    className={`${poppins.variable} ${orbitron.variable} ${montserrat.variable} ${edu.variable} flex [--main-padding:2rem] w-screen overflow-x-hidden `}
+                >
                     <div className="flex-shrink-0">
                         <Drawer />
                     </div>
-                    <div className="flex-[1] overflow-x-hidden h-screen overflow-hidden">
+                    <div className="flex-[1] flex flex-col overflow-x-hidden h-screen overflow-hidden">
                         <Header />
                         {children}
                     </div>
-                </SolanaWallet>
-                <script src="../node_modules/flyonui/flyonui.js"></script>
-            </body>
+                </body>
+            </SolanaWallet>
         </html>
     );
 }
