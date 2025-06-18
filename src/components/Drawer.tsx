@@ -1,9 +1,11 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 export default function Drawer() {
     const [isOpen, setIsOpen] = useState(true);
+    const router = useRouter();
     const NAV_OPTIONS = [
         {
             name: "Home",
@@ -196,6 +198,7 @@ export default function Drawer() {
                     </li>
                 ))}
                 <button
+                    onClick={() => router.push("/launch")}
                     className={`px-[1rem] w-[70%] py-[0.5rem] cursor-pointer bg-accent rounded-[0.5rem] text-primary font-[500] cuursor-pointer ${
                         !isOpen && "hidden"
                     }`}
