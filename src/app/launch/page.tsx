@@ -6,11 +6,6 @@ import React, { Suspense, use, useEffect, useState } from "react";
 export default function LaunchPage() {
     const router = useRouter();
     const currentStep: number | string = useSearchParams().get("step") || 1;
-    useEffect(() => {
-        if (!currentStep) {
-            router.push(`?step=1`);
-        }
-    }, []);
     const handleNext = (event: any) => {
         event.preventDefault();
         if (+currentStep < 4) {
@@ -24,8 +19,9 @@ export default function LaunchPage() {
             router.push(`?step=${+currentStep - 1}`);
         }
     };
-    return (
-        <Suspense fallback={<div>Loading...</div>}>
+
+    function Page() {
+        return (
             <div className="p-[var(--main-padding)] w-full h-full flex items-center justify-center">
                 <div className="inner size-full flex flex-col gap-[2rem]">
                     <p className="text-[1.5rem] font-bold">
@@ -257,6 +253,11 @@ export default function LaunchPage() {
                     )}
                 </div>
             </div>
+        );
+    }
+    return (
+        <Suspense>
+            <Page />
         </Suspense>
     );
 }
