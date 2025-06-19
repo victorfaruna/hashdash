@@ -3,8 +3,8 @@ import React, { useRef, useState } from "react";
 
 export default function LiveSearch() {
     return (
-        <div className="dropdown dropdown-center self-end">
-            <div className="flex gap-[1rem]">
+        <div className="flex self-end gap-[1rem]">
+            <div className="dropdown dropdown-center">
                 <div className="input-container w-[400px] h-[40px] rounded-[0.5rem] border border-secondary/30 bg-primary/60 flex items-center gap-[0.5rem] pl-[1rem]">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -28,15 +28,14 @@ export default function LiveSearch() {
                         placeholder="Search coin..."
                     />
                 </div>
-                <button className="text-accent cursor-pointer bg-gradient-to-t from-accent/1 to-primary border border-secondary/30 rounded-[0.4rem] w-[120px] h-[40px]">
-                    Search
-                </button>
+                <div
+                    tabIndex={0}
+                    className={`dropdown-content w-full bg-primary mt-[0.5rem] rounded-[0.5rem] h-[200px] border border-secondary/30`}
+                ></div>
             </div>
-
-            <div
-                tabIndex={0}
-                className={`dropdown-content w-full bg-primary mt-[0.5rem] rounded-[0.5rem] h-[200px] border border-secondary/30`}
-            ></div>
+            <button className="text-accent cursor-pointer bg-gradient-to-t from-accent/1 to-primary border border-secondary/30 rounded-[0.4rem] w-[120px] h-[40px]">
+                Search
+            </button>
         </div>
     );
 }
