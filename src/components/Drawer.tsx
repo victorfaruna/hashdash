@@ -47,7 +47,7 @@ export default function Drawer() {
                 </svg>
             ),
 
-            href: "/",
+            href: "/advanced",
         },
         {
             name: "Livestream",
@@ -67,7 +67,7 @@ export default function Drawer() {
                     />
                 </svg>
             ),
-            href: "/",
+            href: "/livestream",
         },
 
         {
@@ -88,7 +88,7 @@ export default function Drawer() {
                     />
                 </svg>
             ),
-            href: "/",
+            href: "/utilities",
         },
         {
             name: "Support",
@@ -109,7 +109,7 @@ export default function Drawer() {
                 </svg>
             ),
 
-            href: "/",
+            href: "/support",
         },
         // {
         //     name: "More",

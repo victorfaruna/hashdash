@@ -3,6 +3,7 @@ import React from "react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useWallet } from "@solana/wallet-adapter-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
     const [isConnected, setIsConnected] = React.useState(false);
@@ -26,6 +27,8 @@ export default function Header() {
     const handleDisconnect = () => {
         disconnect();
     };
+
+    const router = useRouter();
     return (
         <header className="h-[80px] w-full flex-shrink-0 flex items-center justify-between px-[var(--main-padding)] border-b border-secondary/10">
             <div className="left flex gap-[var(--main-padding)]">
@@ -76,7 +79,10 @@ export default function Header() {
                 </div>
             </div>
             <div className="right flex gap-[1rem]">
-                <button className="py-[0.4rem] cursor-pointer px-[1rem] rounded-[0.5rem] bg-gradient-to-t from-accent/10 to-primary border border-accent/15 text-accent">
+                <button
+                    onClick={() => router.push("/launch")}
+                    className="py-[0.4rem] cursor-pointer px-[1rem] rounded-[0.5rem] bg-gradient-to-t from-accent/10 to-primary border border-accent/15 text-accent"
+                >
                     Create new coin
                 </button>
 

@@ -4,6 +4,7 @@ import "./globals.css";
 import Drawer from "@/components/Drawer";
 import Header from "@/components/Header";
 import SolanaWallet from "@/providers/SolanaWallet";
+import NextTopLoader from "nextjs-toploader";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -45,6 +46,12 @@ export default function RootLayout({
                 <body
                     className={`${poppins.variable} ${orbitron.variable} ${montserrat.variable} ${edu.variable} flex [--main-padding:2rem] w-screen overflow-x-hidden `}
                 >
+                    <NextTopLoader
+                        color="#fff"
+                        height={1}
+                        shadow={false}
+                        showSpinner={false}
+                    />
                     <div className="flex-shrink-0">
                         <Drawer />
                     </div>

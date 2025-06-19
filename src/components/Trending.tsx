@@ -160,7 +160,7 @@ export default function Trending() {
                         <div
                             style={{ flex: "0 0 auto" }}
                             key={index}
-                            className="item w-[400px] rounded-[1rem] bg-tetiary/15 p-[0.8rem] flex flex-col gap-[1rem]"
+                            className="item w-[400px] rounded-[1rem] bg-tetiary/7 p-[0.8rem] flex flex-col gap-[1rem]"
                         >
                             <div className="top w-full flex gap-[1rem] items-center">
                                 <div className="image flex-shrink-0 size-[80px] bg-secondary/40 rounded-[0.8rem] overflow-hidden">

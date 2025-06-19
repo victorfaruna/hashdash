@@ -5,10 +5,7 @@ export default function LiveSearch() {
     return (
         <div className="dropdown dropdown-center self-end">
             <div className="flex gap-[1rem]">
-                <div
-                    tabIndex={0}
-                    className="input-container w-[400px] h-[40px] rounded-[0.5rem] border border-secondary/30 bg-primary/60 flex items-center gap-[0.5rem] pl-[1rem]"
-                >
+                <div className="input-container w-[400px] h-[40px] rounded-[0.5rem] border border-secondary/30 bg-primary/60 flex items-center gap-[0.5rem] pl-[1rem]">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -25,9 +22,10 @@ export default function LiveSearch() {
                     </svg>
 
                     <input
+                        tabIndex={0}
                         type="text"
                         className="size-full outline-none border-none"
-                        placeholder="Search"
+                        placeholder="Search coin..."
                     />
                 </div>
                 <button className="text-accent cursor-pointer bg-gradient-to-t from-accent/1 to-primary border border-secondary/30 rounded-[0.4rem] w-[120px] h-[40px]">
