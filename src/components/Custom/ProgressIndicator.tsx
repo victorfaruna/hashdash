@@ -15,7 +15,7 @@ export default function ProgressIndicator({
                 <div className="flex items-center" key={i}>
                     <div
                         className={`size-[24px] rounded-full border flex items-center justify-center ${
-                            i + 1 === currentProgress
+                            i + 1 <= currentProgress
                                 ? "border-accent text-accent"
                                 : "border-secondary/30"
                         }`}
@@ -23,9 +23,11 @@ export default function ProgressIndicator({
                         {i + 1}
                     </div>
                     <div
-                        className={`w-[200px] h-0 dash border-b border-secondary/30 ${
-                            i + 1 === progressCount && "hidden"
-                        }`}
+                        className={`w-[200px] h-0 dash border-b   ${
+                            i + 1 < currentProgress
+                                ? "border-accent"
+                                : "border-secondary/30"
+                        } ${i + 1 === progressCount && "hidden"}`}
                     ></div>
                 </div>
             ))}
