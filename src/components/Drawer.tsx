@@ -139,7 +139,7 @@ export default function Drawer() {
     return (
         <div
             className={`bg-primary  h-screen border-r border-secondary/10 transition-all duration-[0.3s] ease-in-out overflow-hidden ${
-                isOpen ? "w-[300px]" : "w-[90px]"
+                isOpen ? "w-[250px]" : "w-[90px]"
             }`}
         >
             <div className="top px-[2rem] h-[80px] border-b border-secondary/10 flex justify-between items-center">
@@ -199,7 +199,7 @@ export default function Drawer() {
                 ))}
                 <button
                     onClick={() => router.push("/launch")}
-                    className={`px-[1rem] w-[70%] py-[0.5rem] cursor-pointer bg-accent rounded-[0.5rem] text-primary font-[500] cuursor-pointer ${
+                    className={`px-[1rem] w-[90%] py-[0.5rem] cursor-pointer bg-accent rounded-[0.5rem] text-primary font-[500] cuursor-pointer ${
                         !isOpen && "hidden"
                     }`}
                 >
