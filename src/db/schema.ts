@@ -1,21 +1,21 @@
 import {
-    integer,
     text,
     boolean,
     pgTable,
     timestamp,
     numeric,
+    uuid,
 } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
-    id: integer("id").primaryKey(),
+    id: uuid("id").defaultRandom().primaryKey().notNull(),
     wallet_address: text("wallet_address").notNull(),
-    is_verified: boolean("is_verified").notNull(),
+    is_verified: boolean("is_verified").notNull().default(false),
     created_at: timestamp("created_at").defaultNow(),
 });
 
 export const tokens = pgTable("tokens", {
-    id: integer("id").primaryKey(),
+    id: uuid("id").defaultRandom().primaryKey().notNull(),
     mint_address: text("mint_address").notNull(),
     name: text("name").notNull(),
     symbol: text("symbol").notNull(),

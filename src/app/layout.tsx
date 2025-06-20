@@ -3,8 +3,8 @@ import { Montserrat, Orbitron, Poppins, Roboto_Flex } from "next/font/google";
 import "./globals.css";
 import Drawer from "@/components/Drawer";
 import Header from "@/components/Header";
-import SolanaWallet from "@/providers/SolanaWallet";
 import NextTopLoader from "nextjs-toploader";
+import Providers from "@/providers/Providers";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -42,7 +42,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <SolanaWallet>
+            <Providers>
                 <body
                     className={`${poppins.variable} ${orbitron.variable} ${montserrat.variable} ${edu.variable} flex [--main-padding:2rem] w-screen overflow-x-hidden `}
                 >
@@ -60,7 +60,7 @@ export default function RootLayout({
                         {children}
                     </div>
                 </body>
-            </SolanaWallet>
+            </Providers>
         </html>
     );
 }

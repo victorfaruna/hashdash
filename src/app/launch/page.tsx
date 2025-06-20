@@ -1,16 +1,43 @@
 "use client";
 import ProgressIndicator from "@/components/Custom/ProgressIndicator";
+import { useCreateCoinStore } from "@/store/create_coin";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { Suspense, use, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 
 const MyPage = () => {
     const router = useRouter();
     const currentStep: number | string = useSearchParams().get("step") || 1;
+
+    //Zustand states............
+    const coinName = useCreateCoinStore((state) => state.name);
+    const coinDescription = useCreateCoinStore((state) => state.description);
+    const coinSymbol = useCreateCoinStore((state) => state.symbol);
+    const coinWebsite = useCreateCoinStore((state) => state.website);
+    const coinXUrl = useCreateCoinStore((state) => state.x_url);
+    const coinTelegramUrl = useCreateCoinStore((state) => state.telegram_url);
+    const setField = useCreateCoinStore((state) => state.setField);
+
+    //In page input states......
+    const [name, setName] = useState(coinName);
+    const [description, setDescription] = useState(coinDescription);
+    const [symbol, setSymbol] = useState(coinSymbol);
+    const [website, setWebsite] = useState(coinWebsite);
+    const [xUrl, setXUrl] = useState(coinXUrl);
+    const [telegramUrl, setTelegramUrl] = useState(coinTelegramUrl);
+
+    //handlers........
     const handleNext = (event: any) => {
         event.preventDefault();
-        if (+currentStep < 4) {
+        if (+currentStep < 3) {
+            setField("name", name);
+            setField("symbol", symbol);
+            setField("description", description);
+            setField("website", website);
+            setField("x_url", xUrl);
+            setField("telegram_url", telegramUrl);
             router.push(`?step=${+currentStep + 1}`);
         }
+        console.log(useCreateCoinStore.getState());
     };
 
     const handlePrev = (event: any) => {
@@ -39,6 +66,10 @@ const MyPage = () => {
                                 <div className=" h-[40px] border border-secondary/30 rounded-[0.5rem] px-[1rem]">
                                     <input
                                         type="text"
+                                        value={name}
+                                        onChange={(e) =>
+                                            setName(e.target.value)
+                                        }
                                         placeholder="Name of your coin"
                                         className="size-full outline-none border-none"
                                     />
@@ -48,6 +79,10 @@ const MyPage = () => {
                                 <label htmlFor="">Ticker</label>
                                 <div className=" h-[40px] border border-secondary/30 rounded-[0.5rem] px-[1rem]">
                                     <input
+                                        value={symbol}
+                                        onChange={(e) =>
+                                            setSymbol(e.target.value)
+                                        }
                                         type="text"
                                         placeholder="Coin ticker e.g SOL"
                                         className="size-full outline-none border-none"
@@ -60,6 +95,10 @@ const MyPage = () => {
                             <label htmlFor="">Description</label>
                             <div className=" h-[200px] border border-secondary/30 rounded-[0.5rem] p-[1rem]">
                                 <textarea
+                                    value={description}
+                                    onChange={(e) =>
+                                        setDescription(e.target.value)
+                                    }
                                     placeholder="Write a short description"
                                     className="size-full outline-none border-none"
                                 />
@@ -100,6 +139,10 @@ const MyPage = () => {
                                 <div className=" h-[40px] border border-secondary/30 rounded-[0.5rem] px-[1rem]">
                                     <input
                                         type="text"
+                                        value={website}
+                                        onChange={(e) =>
+                                            setWebsite(e.target.value)
+                                        }
                                         placeholder="Add website URL"
                                         className="size-full outline-none border-none"
                                     />
@@ -110,6 +153,10 @@ const MyPage = () => {
                                 <div className=" h-[40px] border border-secondary/30 rounded-[0.5rem] px-[1rem]">
                                     <input
                                         type="text"
+                                        value={xUrl}
+                                        onChange={(e) =>
+                                            setXUrl(e.target.value)
+                                        }
                                         placeholder="Add twitter URL"
                                         className="size-full outline-none border-none"
                                     />
@@ -121,6 +168,10 @@ const MyPage = () => {
                                 <label htmlFor="">Telegram</label>
                                 <div className=" h-[40px] border border-secondary/30 rounded-[0.5rem] px-[1rem]">
                                     <input
+                                        value={telegramUrl}
+                                        onChange={(e) =>
+                                            setTelegramUrl(e.target.value)
+                                        }
                                         type="text"
                                         placeholder="Add telegram URL"
                                         className="size-full outline-none border-none"
