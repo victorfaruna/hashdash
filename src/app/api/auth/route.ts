@@ -9,24 +9,49 @@ import { config } from "dotenv";
 config({ path: ".env" });
 
 export async function POST(req: NextRequest) {
-    const { wallet_address }: { wallet_address: string } = await req.json();
+    try {
+        const { wallet_address }: { wallet_address: string } = await req.json();
 
-    if (!wallet_address) {
-        return new NextResponse(
-            JSON.stringify({
-                message: "Wallet address is required",
-                status: 400,
-            }),
-            { status: 400 }
-        );
-    }
+        if (!wallet_address) {
+            return new NextResponse(
+                JSON.stringify({
+                    message: "Wallet address is required",
+                    status: 400,
+                }),
+                { status: 400 }
+            );
+        }
 
-    //check for user account.......
-    const result = await db
-        .select()
-        .from(users)
-        .where(eq(users.wallet_address, wallet_address));
-    if (result.length > 0) {
+        //check for user account.......
+        const result = await db
+            .select()
+            .from(users)
+            .where(eq(users.wallet_address, wallet_address));
+        if (result.length > 0) {
+            const token = jwt.sign(
+                { wallet_address },
+                process.env.JWT_SECRET!,
+                {
+                    expiresIn: "30d",
+                }
+            );
+            return new NextResponse(
+                JSON.stringify({
+                    wallet_address,
+                    token,
+                    message: "User logged in",
+                    status: 200,
+                }),
+                { status: 200 }
+            );
+        }
+
+        //create new user account.......
+        const newUser = await db.insert(users).values({
+            username: generateUsername("", 3),
+            wallet_address,
+        });
+        //log new use in.......
         const token = jwt.sign({ wallet_address }, process.env.JWT_SECRET!, {
             expiresIn: "30d",
         });
@@ -34,36 +59,19 @@ export async function POST(req: NextRequest) {
             JSON.stringify({
                 wallet_address,
                 token,
-                message: "User logged in",
-                status: 200,
+                message: "User created then logged in",
+                status: 201,
             }),
-            { status: 200 }
+            { status: 201 }
         );
-    }
-
-    //create new user account.......
-    const newUser = await db.insert(users).values({
-        username: generateUsername("", 3),
-        wallet_address,
-    });
-    if (!newUser) {
+    } catch (error) {
+        console.log(error);
         return new NextResponse(
-            JSON.stringify({ message: "User not found", status: 404 }),
+            JSON.stringify({
+                message: "Login failed",
+                status: 404,
+            }),
             { status: 404 }
         );
     }
-
-    //log new use in.......
-    const token = jwt.sign({ wallet_address }, process.env.JWT_SECRET!, {
-        expiresIn: "30d",
-    });
-    return new NextResponse(
-        JSON.stringify({
-            wallet_address,
-            token,
-            message: "User created then logged in",
-            status: 201,
-        }),
-        { status: 201 }
-    );
 }
