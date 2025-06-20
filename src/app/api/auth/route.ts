@@ -10,7 +10,8 @@ config({ path: ".env" });
 
 export async function POST(req: NextRequest) {
     try {
-        const { wallet_address }: { wallet_address: string } = await req.json();
+        const body = await req.json();
+        const { wallet_address }: { wallet_address: string } = body;
 
         if (!wallet_address) {
             return new NextResponse(
