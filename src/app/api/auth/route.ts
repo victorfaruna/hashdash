@@ -53,9 +53,13 @@ export async function POST(req: NextRequest) {
             wallet_address,
         });
         //log new use in.......
-        const token = jwt.sign({ wallet_address }, process.env.JWT_SECRET!, {
-            expiresIn: "30d",
-        });
+        const token = jwt.sign(
+            { wallet_address: wallet_address },
+            process.env.JWT_SECRET!,
+            {
+                expiresIn: "30d",
+            }
+        );
         return new NextResponse(
             JSON.stringify({
                 wallet_address,
