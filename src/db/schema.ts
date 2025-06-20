@@ -9,6 +9,7 @@ import {
 
 export const users = pgTable("users", {
     id: uuid("id").defaultRandom().primaryKey().notNull(),
+    username: text("username").notNull(),
     wallet_address: text("wallet_address").notNull(),
     is_verified: boolean("is_verified").notNull().default(false),
     created_at: timestamp("created_at").defaultNow(),

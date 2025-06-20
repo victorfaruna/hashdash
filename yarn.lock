@@ -7202,6 +7202,11 @@ unidragger@^3.0.0:
   dependencies:
     ev-emitter "^2.0.0"
 
+unique-username-generator@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/unique-username-generator/-/unique-username-generator-1.4.0.tgz#d5dc77056a271802146869097ac133a928078b12"
+  integrity sha512-Y6CY5vLPeixB5V4t6b/y7KkOPWpbANCIln4O6MRzz2uPIxzDm6KshWxJKMeAxLU2EPyCK+ptw/YeZMkZPFv2bw==
+
 unload@^2.4.1:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/unload/-/unload-2.4.1.tgz#b0c5b7fb44e17fcbf50dcb8fb53929c59dd226a5"

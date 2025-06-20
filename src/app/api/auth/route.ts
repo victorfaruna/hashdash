@@ -2,6 +2,7 @@ import { db } from "@/db/drizzle";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
+import { generateUsername } from "unique-username-generator";
 import jwt from "jsonwebtoken";
 import { config } from "dotenv";
 
@@ -42,6 +43,7 @@ export async function POST(req: NextRequest) {
 
     //create new user account.......
     const newUser = await db.insert(users).values({
+        username: generateUsername("", 3),
         wallet_address,
     });
     if (!newUser) {
