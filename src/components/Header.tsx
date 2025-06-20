@@ -5,9 +5,11 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { login } from "@/services/auth";
+import { useAuthStore } from "@/store/auth";
 
 export default function Header() {
     const [isConnected, setIsConnected] = React.useState(false);
+    const setAuth = useAuthStore((state) => state.setAuth);
     const { setVisible } = useWalletModal();
     const { publicKey, disconnect } = useWallet();
 
@@ -20,6 +22,7 @@ export default function Header() {
             loginUser();
         } else {
             setIsConnected(false);
+            setAuth(false, "", "");
         }
     }, [publicKey]);
 
@@ -167,7 +170,7 @@ export default function Header() {
                                 }}
                                 className="cursor-pointer"
                             >
-                                Copy{" "}
+                                copy{" "}
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -184,7 +187,11 @@ export default function Header() {
                                 </svg>
                             </button>
                             <li>
-                                <Link href={"/"}>Profile</Link>
+                                <Link
+                                    href={`/profile/${publicKey?.toString()}`}
+                                >
+                                    Profile
+                                </Link>
                             </li>
 
                             <li>

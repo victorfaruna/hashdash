@@ -1,11 +1,17 @@
 "use client";
+import { useAuthStore } from "@/store/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 export default function Drawer() {
-    const [isOpen, setIsOpen] = useState(true);
     const router = useRouter();
+    const [isOpen, setIsOpen] = useState(true);
+
+    //....
+    const isAuth = useAuthStore((state) => state.isAuth);
+    const wallet_address = useAuthStore((state) => state.wallet_address);
+
     const NAV_OPTIONS = [
         {
             name: "Home",
@@ -111,28 +117,8 @@ export default function Drawer() {
 
             href: "/support",
         },
-        // {
-        //     name: "More",
-        //     icon: (
-        //         <svg
-        //             xmlns="http://www.w3.org/2000/svg"
-        //             fill="none"
-        //             viewBox="0 0 24 24"
-        //             strokeWidth="1"
-        //             stroke="currentColor"
-        //             className="size-5"
-        //         >
-        //             <path
-        //                 strokeLinecap="round"
-        //                 strokeLinejoin="round"
-        //                 d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-        //             />
-        //         </svg>
-        //     ),
-
-        //     href: "/",
-        // },
     ];
+
     const handleClick = () => {
         setIsOpen(!isOpen);
     };
@@ -197,6 +183,31 @@ export default function Drawer() {
                         </Link>
                     </li>
                 ))}
+                {isAuth && (
+                    <li className="list-none flex gap-[1rem] items-center">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="1"
+                            stroke="currentColor"
+                            className="size-5"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                            />
+                        </svg>
+
+                        <Link
+                            className={`${!isOpen && "hidden"}`}
+                            href={isAuth ? `/profile/${wallet_address}` : "/"}
+                        >
+                            Profile
+                        </Link>
+                    </li>
+                )}
                 <button
                     onClick={() => router.push("/launch")}
                     className={`px-[1rem] w-[90%] py-[0.5rem] cursor-pointer bg-accent rounded-[0.5rem] text-primary font-[500] cuursor-pointer ${

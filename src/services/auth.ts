@@ -7,7 +7,9 @@ export const login = async (wallet_address: string) => {
         const response = await axiosInstance.post("/auth", {
             wallet_address,
         });
-        useAuthStore.getState().setAuth(true, response.data.token);
+        useAuthStore
+            .getState()
+            .setAuth(true, response.data.token, wallet_address);
         console.log(response.data.wallet_address);
         console.log("Logged in successfully");
         return response.data;
