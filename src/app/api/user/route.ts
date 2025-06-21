@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
     try {
         const searchParams = request.nextUrl.searchParams;
         const wallet_address = searchParams.get("wallet_address") || "";
-
+        //...
         //...
         const result = await db
             .select()
@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
             .where(eq(users.wallet_address, wallet_address));
 
         //...
-        return new Response(JSON.stringify({ data: result, status: 200 }), {
+        return new Response(JSON.stringify({ data: result[0], status: 200 }), {
             status: 200,
         });
     } catch (error) {

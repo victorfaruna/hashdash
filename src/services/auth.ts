@@ -4,13 +4,13 @@ import { useAuthStore } from "@/store/auth";
 
 export const login = async (wallet_address: string) => {
     try {
-        const response = await axiosInstance.post("/auth", {
+        const request = await axiosInstance.post("/auth", {
             wallet_address,
         });
-        useAuthStore
-            .getState()
-            .setAuth(true, response.data.token, wallet_address);
-        console.log(response.data.wallet_address);
+        const response = request.data;
+        const token = response.token;
+        useAuthStore.getState().setAuth(true, token, wallet_address);
+        localStorage.setItem("token", token);
         console.log("Logged in successfully");
         return response.data;
     } catch (error: Error | AxiosError | any) {
