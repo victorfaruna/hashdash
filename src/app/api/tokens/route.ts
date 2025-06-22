@@ -2,7 +2,7 @@ import { db } from "@/db/drizzle";
 import { tokens } from "@/db/schema";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: NextRequest, response: NextResponse) {
+export async function POST(request: NextRequest) {
     try {
         const { body } = await request.json();
         const {
