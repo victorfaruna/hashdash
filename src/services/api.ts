@@ -5,7 +5,8 @@ import axios from "axios";
 export const API_URL =
     process.env.NODE_ENV === "production"
         ? `${
-              process.env.NEXT_PUBLIC_SITE_URL || "https://your-domain.com"
+              process.env.NEXT_PUBLIC_SITE_URL ||
+              "https://hashdash-bay.vercel.app/api/"
           }/api/`
         : "http://localhost:3000/api/";
 
