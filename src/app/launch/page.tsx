@@ -12,7 +12,7 @@ const MyPage = () => {
     const coinName = useCreateCoinStore((state) => state.name);
     const coinDescription = useCreateCoinStore((state) => state.description);
     const coinSymbol = useCreateCoinStore((state) => state.symbol);
-    const coinWebsite = useCreateCoinStore((state) => state.website);
+    const coinWebsite = useCreateCoinStore((state) => state.website_url);
     const coinXUrl = useCreateCoinStore((state) => state.x_url);
     const coinTelegramUrl = useCreateCoinStore((state) => state.telegram_url);
     const setField = useCreateCoinStore((state) => state.setField);
@@ -21,7 +21,7 @@ const MyPage = () => {
     const [name, setName] = useState(coinName);
     const [description, setDescription] = useState(coinDescription);
     const [symbol, setSymbol] = useState(coinSymbol);
-    const [website, setWebsite] = useState(coinWebsite);
+    const [websiteUrl, setWebsiteUrl] = useState(coinWebsite);
     const [xUrl, setXUrl] = useState(coinXUrl);
     const [telegramUrl, setTelegramUrl] = useState(coinTelegramUrl);
 
@@ -32,7 +32,7 @@ const MyPage = () => {
             setField("name", name);
             setField("symbol", symbol);
             setField("description", description);
-            setField("website", website);
+            setField("website", websiteUrl);
             setField("x_url", xUrl);
             setField("telegram_url", telegramUrl);
             router.push(`?step=${+currentStep + 1}`);
@@ -139,9 +139,9 @@ const MyPage = () => {
                                 <div className=" h-[40px] border border-secondary/30 rounded-[0.5rem] px-[1rem]">
                                     <input
                                         type="text"
-                                        value={website}
+                                        value={websiteUrl}
                                         onChange={(e) =>
-                                            setWebsite(e.target.value)
+                                            setWebsiteUrl(e.target.value)
                                         }
                                         placeholder="Add website URL"
                                         className="size-full outline-none border-none"
