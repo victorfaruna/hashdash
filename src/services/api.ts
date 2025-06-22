@@ -1,6 +1,13 @@
 import { useAuthStore } from "@/store/auth";
 import axios from "axios";
-export const API_URL = "http://localhost:3000/api/";
+
+// Dynamic API URL based on environment
+export const API_URL =
+    process.env.NODE_ENV === "production"
+        ? `${
+              process.env.NEXT_PUBLIC_SITE_URL || "https://your-domain.com"
+          }/api/`
+        : "http://localhost:3000/api/";
 
 export const axiosInstance = axios.create({
     baseURL: API_URL,

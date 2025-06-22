@@ -1,77 +1,24 @@
 "use client";
+import { getTrendingTokens } from "@/services/token";
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 
-const TRENDING_DATA = [
-    {
-        name: "Ashpunk",
-        symbol: "ASH",
-        image: "/images/coins/coin-1.webp",
-        price: 10000,
-        volume: 10000,
-        change: 100,
-    },
-    {
-        name: "Streamy",
-        symbol: "STR",
-        image: "/images/coins/coin-2.webp",
-        price: 10000,
-        volume: 10000,
-        change: 100,
-    },
-    {
-        name: "Voltrom Is Back",
-        symbol: "VOLT",
-        image: "/images/coins/coin-3.webp",
-        price: 10000,
-        volume: 10000,
-        change: 100,
-    },
-    {
-        name: "Dello",
-        symbol: "DLO",
-        image: "/images/coins/coin-4.webp",
-        price: 10000,
-        volume: 10000,
-        change: 100,
-    },
-    {
-        name: "Ashpunk",
-        symbol: "ASH",
-        image: "/images/coins/coin-1.webp",
-        price: 10000,
-        volume: 10000,
-        change: 100,
-    },
-    {
-        name: "Streamy",
-        symbol: "STR",
-        image: "/images/coins/coin-2.webp",
-        price: 10000,
-        volume: 10000,
-        change: 100,
-    },
-    {
-        name: "Voltrom Is Back",
-        symbol: "VOLT",
-        image: "/images/coins/coin-3.webp",
-        price: 10000,
-        volume: 10000,
-        change: 100,
-    },
-    {
-        name: "Dello",
-        symbol: "DLO",
-        image: "/images/coins/coin-4.webp",
-        price: 10000,
-        volume: 10000,
-        change: 100,
-    },
-];
+type TrendingData = {
+    name: string;
+    symbol: string;
+    image: string;
+    description: string;
+};
 
 export default function Trending() {
     const SCROLL_AMOUNT = 220;
     let scroller = React.useRef<any>(null);
+
+    const { data: trendingData, isLoading } = useQuery({
+        queryKey: ["trending"],
+        queryFn: async () => await getTrendingTokens(),
+    });
 
     const handleNext = () => {
         scroller?.current?.scrollBy({
@@ -156,45 +103,55 @@ export default function Trending() {
                     className="inner flex w-full whitespace-nowrap gap-[var(--main-padding)] overflow-x-auto no-scrollbar"
                     ref={scroller}
                 >
-                    {TRENDING_DATA.map((item, index) => (
-                        <div
-                            style={{ flex: "0 0 auto" }}
-                            key={index}
-                            className="item w-[400px] rounded-[1rem] bg-tetiary/7 p-[0.8rem] flex flex-col gap-[1rem]"
-                        >
-                            <div className="top w-full flex gap-[1rem] items-center">
-                                <div className="image flex-shrink-0 size-[80px] bg-secondary/40 rounded-[0.8rem] overflow-hidden">
-                                    <Image
-                                        src={`${
-                                            item.image
-                                                ? item.image
-                                                : "/images/coins/coin-1.webp"
-                                        }`}
-                                        width={100}
-                                        className="size-full object-cover"
-                                        height={100}
-                                        alt=""
-                                    />
+                    {isLoading &&
+                        Array.from({ length: 20 }).map((_, i) => (
+                            <div
+                                style={{ flex: "0 0 auto" }}
+                                key={i}
+                                className="item w-[400px] skeleton h-[150px] rounded-[1rem] bg-tetiary/7 p-[0.8rem] flex flex-col gap-[1rem]"
+                            ></div>
+                        ))}
+                    {!isLoading &&
+                        trendingData.map(
+                            (item: TrendingData, index: number) => (
+                                <div
+                                    style={{ flex: "0 0 auto" }}
+                                    key={index}
+                                    className="item w-[400px] rounded-[1rem] bg-tetiary/7 p-[0.8rem] flex flex-col gap-[1rem]"
+                                >
+                                    <div className="top w-full flex gap-[1rem] items-center">
+                                        <div className="image flex-shrink-0 size-[80px] bg-secondary/40 rounded-[0.8rem] overflow-hidden">
+                                            <Image
+                                                src={`${
+                                                    item.image
+                                                        ? item.image
+                                                        : "/images/coins/coin-1.webp"
+                                                }`}
+                                                width={100}
+                                                className="size-full object-cover"
+                                                height={100}
+                                                alt=""
+                                            />
+                                        </div>
+                                        <div className="info w-full overflow-hidden h-full flex flex-col justify-start gap-[0.3rem] ">
+                                            <p className="text-[15px] text-wrap">
+                                                {item.name} ({item.symbol})
+                                            </p>
+                                            <p className=" desc text-[0.7rem] text-secondary/70 text-wrap">
+                                                {item.description}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="border border-secondary/10" />
+                                    <div className="bottom flex items-center justify-between text-[11] text-secondary/60">
+                                        <p>replies: 543</p>
+                                        <p className="text-accent/60">
+                                            market cap: $2.1M
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className="info w-full overflow-hidden h-full flex flex-col justify-start gap-[0.3rem] ">
-                                    <p className="text-[15px] text-wrap">
-                                        {item.name} ({item.symbol})
-                                    </p>
-                                    <p className=" desc text-[0.7rem] text-secondary/70 text-wrap">
-                                        Dev sells on stream, falls out if chair,
-                                        trenches take over
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="border border-secondary/10" />
-                            <div className="bottom flex items-center justify-between text-[11] text-secondary/60">
-                                <p>replies: 543</p>
-                                <p className="text-accent/60">
-                                    market cap: $2.1M
-                                </p>
-                            </div>
-                        </div>
-                    ))}
+                            )
+                        )}
                 </div>
                 <div className="fader absolute z-[10] w-[150px] h-full right-0 top-0 bg-gradient-to-r from-transparent to-primary"></div>
             </div>
