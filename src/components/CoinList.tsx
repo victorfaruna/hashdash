@@ -9,6 +9,7 @@ type CoinListData = {
     symbol: string;
     image: string;
     description: string;
+    reply_count: number;
 };
 
 export default function CoinList() {
@@ -88,7 +89,7 @@ export default function CoinList() {
                             </div>
                             <div className="border border-secondary/10" />
                             <div className="bottom flex items-center justify-between text-[11] text-secondary/60">
-                                <p>replies: 543</p>
+                                <p>replies: {item.reply_count}</p>
                                 <p className="text-accent/60">
                                     market cap: $2.1M
                                 </p>
