@@ -23,6 +23,11 @@ const MyPage = () => {
     //...
     const wallet_address = useAuthStore((state) => state.wallet_address);
 
+    const [walletAddress, setWalletAddress] = useState(wallet_address);
+    useEffect(() => {
+        setWalletAddress(wallet_address);
+    }, [wallet_address]);
+
     //Zustand states............
     const coinName = useCreateCoinStore((state) => state.name);
     const coinDescription = useCreateCoinStore((state) => state.description);
@@ -61,6 +66,7 @@ const MyPage = () => {
         console.log(useCreateCoinStore.getState());
 
         if (+currentStep == 3) {
+            console.log("WALLET: ", walletAddress);
             try {
                 setIsLoading(true);
                 const result = await createToken({

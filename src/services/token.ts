@@ -25,8 +25,6 @@ export const createToken = async ({
     total_supply,
 }: CreateCoin) => {
     try {
-        console.log("createToken received image:", image);
-        console.log("Image type:", typeof image, image instanceof File);
         const formData = new FormData();
         formData.append("name", name);
         formData.append("symbol", symbol);

@@ -16,7 +16,11 @@ export default function Trending() {
     const SCROLL_AMOUNT = 220;
     let scroller = React.useRef<any>(null);
 
-    const { data: trendingData, isLoading } = useQuery({
+    const {
+        data: trendingData,
+        isLoading,
+        isError,
+    } = useQuery({
         queryKey: ["trending"],
         queryFn: async () => await getTrendingTokens(),
     });
@@ -104,7 +108,7 @@ export default function Trending() {
                     className="inner flex w-full whitespace-nowrap gap-[var(--main-padding)] overflow-x-auto no-scrollbar"
                     ref={scroller}
                 >
-                    {isLoading &&
+                    {(isLoading || isError) &&
                         Array.from({ length: 20 }).map((_, i) => (
                             <div
                                 style={{ flex: "0 0 auto" }}
@@ -113,6 +117,7 @@ export default function Trending() {
                             ></div>
                         ))}
                     {!isLoading &&
+                        !isError &&
                         trendingData.map(
                             (item: TrendingData, index: number) => (
                                 <div

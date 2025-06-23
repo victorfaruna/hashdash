@@ -13,7 +13,11 @@ type CoinListData = {
 };
 
 export default function CoinList() {
-    const { data: coinListData, isLoading } = useQuery({
+    const {
+        data: coinListData,
+        isLoading,
+        isError,
+    } = useQuery({
         queryKey: ["coin_list"],
         queryFn: async () => await getTokens(),
     });
@@ -49,7 +53,7 @@ export default function CoinList() {
                         "repeat(auto-fill, minmax(400px, 1fr))",
                 }}
             >
-                {isLoading &&
+                {(isLoading || isError) &&
                     Array.from({ length: 20 }).map((_, i) => (
                         <div
                             style={{ flex: "0 0 auto" }}
@@ -58,6 +62,7 @@ export default function CoinList() {
                         ></div>
                     ))}
                 {!isLoading &&
+                    !isError &&
                     coinListData.map((item: CoinListData, index: number) => (
                         <div
                             style={{ flex: "0 0 auto" }}
