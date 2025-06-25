@@ -5,231 +5,91 @@
         {
             "name": "initialize",
             "accounts": [
-                {
-                    "name": "authority",
-                    "isMut": true,
-                    "isSigner": true
-                },
-                {
-                    "name": "state",
-                    "isMut": true,
-                    "isSigner": false
-                },
-                {
-                    "name": "tokenMint",
-                    "isMut": true,
-                    "isSigner": false
-                },
-                {
-                    "name": "mintAuthority",
-                    "isMut": false,
-                    "isSigner": false
-                },
-                {
-                    "name": "tokenVault",
-                    "isMut": true,
-                    "isSigner": false
-                },
+                { "name": "authority", "isMut": true, "isSigner": true },
+                { "name": "state", "isMut": true, "isSigner": false },
+                { "name": "tokenMint", "isMut": true, "isSigner": true },
+                { "name": "mintAuthority", "isMut": false, "isSigner": false },
+                { "name": "tokenVault", "isMut": true, "isSigner": false },
                 {
                     "name": "tokenVaultAuthority",
                     "isMut": false,
                     "isSigner": false
                 },
-                {
-                    "name": "solVault",
-                    "isMut": true,
-                    "isSigner": false
-                },
-                {
-                    "name": "systemProgram",
-                    "isMut": false,
-                    "isSigner": false
-                },
-                {
-                    "name": "tokenProgram",
-                    "isMut": false,
-                    "isSigner": false
-                },
+                { "name": "solVault", "isMut": true, "isSigner": false },
+                { "name": "systemProgram", "isMut": false, "isSigner": false },
+                { "name": "tokenProgram", "isMut": false, "isSigner": false },
                 {
                     "name": "associatedTokenProgram",
                     "isMut": false,
                     "isSigner": false
                 },
-                {
-                    "name": "rent",
-                    "isMut": false,
-                    "isSigner": false
-                }
+                { "name": "rent", "isMut": false, "isSigner": false }
             ],
             "args": [
-                {
-                    "name": "name",
-                    "type": "string"
-                },
-                {
-                    "name": "symbol",
-                    "type": "string"
-                },
-                {
-                    "name": "decimals",
-                    "type": "u8"
-                },
-                {
-                    "name": "total_supply",
-                    "type": { "option": true, "type": "u64" }
-                }
+                { "name": "name", "type": "string" },
+                { "name": "symbol", "type": "string" },
+                { "name": "decimals", "type": "u8" },
+                { "name": "totalSupply", "type": { "option": "u64" } }
             ]
         },
         {
             "name": "buy",
             "accounts": [
-                {
-                    "name": "state",
-                    "isMut": true,
-                    "isSigner": false
-                },
-                {
-                    "name": "tokenMint",
-                    "isMut": true,
-                    "isSigner": false
-                },
+                { "name": "state", "isMut": true, "isSigner": false },
+                { "name": "tokenMint", "isMut": true, "isSigner": false },
                 {
                     "name": "userTokenAccount",
                     "isMut": true,
                     "isSigner": false
                 },
+                { "name": "user", "isMut": true, "isSigner": true },
+                { "name": "tokenVault", "isMut": true, "isSigner": false },
+                { "name": "mintAuthority", "isMut": false, "isSigner": false },
                 {
-                    "name": "user",
-                    "isMut": true,
-                    "isSigner": true
-                },
-                {
-                    "name": "tokenVault",
-                    "isMut": true,
-                    "isSigner": false
-                },
-                {
-                    "name": "mintAuthority",
+                    "name": "tokenVaultAuthority",
                     "isMut": false,
                     "isSigner": false
                 },
-                {
-                    "name": "solVault",
-                    "isMut": true,
-                    "isSigner": false
-                },
-                {
-                    "name": "systemProgram",
-                    "isMut": false,
-                    "isSigner": false
-                },
-                {
-                    "name": "tokenProgram",
-                    "isMut": false,
-                    "isSigner": false
-                }
+                { "name": "solVault", "isMut": true, "isSigner": false },
+                { "name": "systemProgram", "isMut": false, "isSigner": false },
+                { "name": "tokenProgram", "isMut": false, "isSigner": false }
             ],
             "args": [
-                {
-                    "name": "solAmount",
-                    "type": "u64"
-                },
-                {
-                    "name": "minTokensOut",
-                    "type": "u64"
-                }
+                { "name": "solAmount", "type": "u64" },
+                { "name": "minTokensOut", "type": "u64" }
             ]
         },
         {
             "name": "sell",
             "accounts": [
-                {
-                    "name": "state",
-                    "isMut": true,
-                    "isSigner": false
-                },
-                {
-                    "name": "tokenMint",
-                    "isMut": true,
-                    "isSigner": false
-                },
+                { "name": "state", "isMut": true, "isSigner": false },
+                { "name": "tokenMint", "isMut": true, "isSigner": false },
                 {
                     "name": "userTokenAccount",
                     "isMut": true,
                     "isSigner": false
                 },
-                {
-                    "name": "user",
-                    "isMut": true,
-                    "isSigner": true
-                },
-                {
-                    "name": "tokenVault",
-                    "isMut": true,
-                    "isSigner": false
-                },
-                {
-                    "name": "solVault",
-                    "isMut": true,
-                    "isSigner": false
-                },
-                {
-                    "name": "systemProgram",
-                    "isMut": false,
-                    "isSigner": false
-                },
-                {
-                    "name": "tokenProgram",
-                    "isMut": false,
-                    "isSigner": false
-                }
+                { "name": "user", "isMut": true, "isSigner": true },
+                { "name": "tokenVault", "isMut": true, "isSigner": false },
+                { "name": "solVault", "isMut": true, "isSigner": false },
+                { "name": "systemProgram", "isMut": false, "isSigner": false },
+                { "name": "tokenProgram", "isMut": false, "isSigner": false }
             ],
             "args": [
-                {
-                    "name": "tokenAmount",
-                    "type": "u64"
-                },
-                {
-                    "name": "minSolOut",
-                    "type": "u64"
-                }
+                { "name": "tokenAmount", "type": "u64" },
+                { "name": "minSolOut", "type": "u64" }
             ]
         },
         {
             "name": "withdraw",
             "accounts": [
-                {
-                    "name": "state",
-                    "isMut": true,
-                    "isSigner": false
-                },
-                {
-                    "name": "solVault",
-                    "isMut": true,
-                    "isSigner": false
-                },
-                {
-                    "name": "destination",
-                    "isMut": true,
-                    "isSigner": false
-                },
-                {
-                    "name": "authority",
-                    "isMut": false,
-                    "isSigner": true
-                },
-                {
-                    "name": "systemProgram",
-                    "isMut": false,
-                    "isSigner": false
-                }
+                { "name": "state", "isMut": true, "isSigner": false },
+                { "name": "solVault", "isMut": true, "isSigner": false },
+                { "name": "destination", "isMut": true, "isSigner": false },
+                { "name": "authority", "isMut": false, "isSigner": true },
+                { "name": "systemProgram", "isMut": false, "isSigner": false }
             ],
-            "args": [
-                {
-                    "name": "amount",
-                    "type": "u64"
-                }
-            ]
+            "args": [{ "name": "amount", "type": "u64" }]
         }
     ],
     "accounts": [
@@ -238,50 +98,17 @@
             "type": {
                 "kind": "struct",
                 "fields": [
-                    {
-                        "name": "authority",
-                        "type": "publicKey"
-                    },
-                    {
-                        "name": "tokenMint",
-                        "type": "publicKey"
-                    },
-                    {
-                        "name": "tokenVault",
-                        "type": "publicKey"
-                    },
-                    {
-                        "name": "solVault",
-                        "type": "publicKey"
-                    },
-                    {
-                        "name": "name",
-                        "type": "string"
-                    },
-                    {
-                        "name": "symbol",
-                        "type": "string"
-                    },
-                    {
-                        "name": "decimals",
-                        "type": "u8"
-                    },
-                    {
-                        "name": "totalSupply",
-                        "type": "u64"
-                    },
-                    {
-                        "name": "solBalance",
-                        "type": "u64"
-                    },
-                    {
-                        "name": "launchFee",
-                        "type": "u64"
-                    },
-                    {
-                        "name": "tradingFeeBps",
-                        "type": "u16"
-                    }
+                    { "name": "authority", "type": "publicKey" },
+                    { "name": "tokenMint", "type": "publicKey" },
+                    { "name": "tokenVault", "type": "publicKey" },
+                    { "name": "solVault", "type": "publicKey" },
+                    { "name": "name", "type": "string" },
+                    { "name": "symbol", "type": "string" },
+                    { "name": "decimals", "type": "u8" },
+                    { "name": "totalSupply", "type": "u64" },
+                    { "name": "solBalance", "type": "u64" },
+                    { "name": "launchFee", "type": "u64" },
+                    { "name": "tradingFeeBps", "type": "u16" }
                 ]
             }
         }
@@ -290,71 +117,31 @@
         {
             "name": "BuyEvent",
             "fields": [
-                {
-                    "name": "user",
-                    "type": "publicKey",
-                    "index": false
-                },
-                {
-                    "name": "tokenAmount",
-                    "type": "u64",
-                    "index": false
-                },
-                {
-                    "name": "solAmount",
-                    "type": "u64",
-                    "index": false
-                }
+                { "name": "user", "type": "publicKey", "index": false },
+                { "name": "tokenAmount", "type": "u64", "index": false },
+                { "name": "solAmount", "type": "u64", "index": false }
             ]
         },
         {
             "name": "SellEvent",
             "fields": [
-                {
-                    "name": "user",
-                    "type": "publicKey",
-                    "index": false
-                },
-                {
-                    "name": "tokenAmount",
-                    "type": "u64",
-                    "index": false
-                },
-                {
-                    "name": "solAmount",
-                    "type": "u64",
-                    "index": false
-                }
+                { "name": "user", "type": "publicKey", "index": false },
+                { "name": "tokenAmount", "type": "u64", "index": false },
+                { "name": "solAmount", "type": "u64", "index": false }
             ]
         },
         {
             "name": "InitializeEvent",
             "fields": [
-                {
-                    "name": "authority",
-                    "type": "publicKey",
-                    "index": false
-                },
-                {
-                    "name": "tokenMint",
-                    "type": "publicKey",
-                    "index": false
-                }
+                { "name": "authority", "type": "publicKey", "index": false },
+                { "name": "tokenMint", "type": "publicKey", "index": false }
             ]
         },
         {
             "name": "WithdrawEvent",
             "fields": [
-                {
-                    "name": "authority",
-                    "type": "publicKey",
-                    "index": false
-                },
-                {
-                    "name": "amount",
-                    "type": "u64",
-                    "index": false
-                }
+                { "name": "authority", "type": "publicKey", "index": false },
+                { "name": "amount", "type": "u64", "index": false }
             ]
         }
     ],
@@ -369,21 +156,9 @@
             "name": "InsufficientLiquidity",
             "msg": "Insufficient liquidity"
         },
-        {
-            "code": 6002,
-            "name": "MissingBump",
-            "msg": "Missing bump seed"
-        },
-        {
-            "code": 6003,
-            "name": "Unauthorized",
-            "msg": "Unauthorized"
-        },
-        {
-            "code": 6004,
-            "name": "InvalidAmount",
-            "msg": "Invalid amount"
-        },
+        { "code": 6002, "name": "MissingBump", "msg": "Missing bump seed" },
+        { "code": 6003, "name": "Unauthorized", "msg": "Unauthorized" },
+        { "code": 6004, "name": "InvalidAmount", "msg": "Invalid amount" },
         {
             "code": 6005,
             "name": "InvalidTokenAccount",
@@ -398,9 +173,8 @@
             "code": 6007,
             "name": "InsufficientTokenBalance",
             "msg": "Insufficient token balance"
-        }
-    ],
-    "metadata": {
-        "address": "GMTRzthGWTAucZQP9dZpMPr4QwmZ6fqhTgTGyqEh22La"
-    }
+        },
+        { "code": 6008, "name": "InvalidDecimals", "msg": "Invalid decimals" },
+        { "code": 6009, "name": "SlippageExceeded", "msg": "Slippage exceeded" }
+    ]
 }

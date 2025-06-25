@@ -109,7 +109,7 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
     try {
         const tokens = await db.query.tokens.findMany({
-            orderBy: (token, { asc }) => [asc(token.total_supply)],
+            orderBy: (token, { desc }) => [desc(token.id)],
         });
 
         return new NextResponse(

@@ -22,6 +22,11 @@ const MyPage = () => {
 
     //...
     const wallet_address = useAuthStore((state) => state.wallet_address);
+    useEffect(() => {
+        if (!wallet_address) {
+            router.push("/");
+        }
+    }, [wallet_address]);
 
     const [walletAddress, setWalletAddress] = useState(wallet_address);
     useEffect(() => {

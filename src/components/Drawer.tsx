@@ -1,5 +1,6 @@
 "use client";
 import { useAuthStore } from "@/store/auth";
+import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -7,6 +8,7 @@ import React, { useState } from "react";
 export default function Drawer() {
     const router = useRouter();
     const [isOpen, setIsOpen] = useState(true);
+    const { setVisible } = useWalletModal();
 
     //....
     const isAuth = useAuthStore((state) => state.isAuth);
@@ -210,7 +212,13 @@ export default function Drawer() {
                 </li>
 
                 <button
-                    onClick={() => router.push("/launch")}
+                    onClick={() => {
+                        if (!isAuth) {
+                            setVisible(true);
+                            return;
+                        }
+                        router.push("/launch");
+                    }}
                     className={`px-[1rem] w-[90%] py-[0.5rem] cursor-pointer bg-accent rounded-[0.5rem] text-primary font-[500] cuursor-pointer ${
                         !isOpen && "hidden"
                     }`}

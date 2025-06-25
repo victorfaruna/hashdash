@@ -22,7 +22,7 @@ const SolanaWallet = ({ children }: { children: React.ReactNode }) => {
     const network = WalletAdapterNetwork.Devnet;
 
     // You can also provide a custom RPC endpoint.
-    const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+    const endpoint = useMemo(() => "https://api.devnet.solana.com", []);
 
     const wallets = useMemo(
         () => [

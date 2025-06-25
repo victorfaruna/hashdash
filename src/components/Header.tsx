@@ -41,7 +41,7 @@ export default function Header() {
     return (
         <header className="h-[80px] w-full flex-shrink-0 flex items-center justify-between px-[var(--main-padding)] border-b border-secondary/10">
             <div className="left flex gap-[1rem]">
-                <div className="item border border-[gold]/20 p-[0.5rem] rounded-[0.5rem] flex items-center gap-[1rem]">
+                <div className="item border border-[gold]/20 p-[0.3rem] rounded-[0.5rem] flex items-center gap-[1rem]">
                     <div className="ico size-[1.5rem] rounded-sm bg-[gold]/20 flex items-center justify-center">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +64,7 @@ export default function Header() {
                     </p>
                 </div>
 
-                <div className="item border border-[hotpink]/20 p-[0.5rem] rounded-[0.5rem] flex items-center gap-[1rem]">
+                <div className="item border border-[hotpink]/20 p-[0.3rem] rounded-[0.5rem] flex items-center gap-[1rem]">
                     <div className="ico size-[1.5rem] rounded-sm bg-[hotgold]/20 flex items-center justify-center">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +89,13 @@ export default function Header() {
             </div>
             <div className="right flex gap-[1rem]">
                 <button
-                    onClick={() => router.push("/launch")}
+                    onClick={() => {
+                        if (!isConnected) {
+                            handleConnect();
+                            return;
+                        }
+                        router.push("/launch");
+                    }}
                     className="py-[0.4rem] cursor-pointer px-[1rem] rounded-[0.5rem] bg-gradient-to-t from-accent/10 to-primary border border-accent/15 text-accent"
                 >
                     Create new coin

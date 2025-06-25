@@ -10,6 +10,7 @@ type TrendingData = {
     image: string;
     description: string;
     reply_count: number;
+    market_cap: number;
 };
 
 export default function Trending() {
@@ -105,7 +106,7 @@ export default function Trending() {
 
             <div className="scroller w-full overflow-hidden relative">
                 <div
-                    className="inner flex w-full whitespace-nowrap gap-[var(--main-padding)] overflow-x-auto no-scrollbar"
+                    className="inner flex w-full whitespace-nowrap gap-[1rem] overflow-x-auto no-scrollbar"
                     ref={scroller}
                 >
                     {(isLoading || isError) &&
@@ -113,7 +114,7 @@ export default function Trending() {
                             <div
                                 style={{ flex: "0 0 auto" }}
                                 key={i}
-                                className="item w-[400px] skeleton h-[150px] rounded-[1rem] bg-tetiary/7 p-[0.8rem] flex flex-col gap-[1rem]"
+                                className="item w-[360px] skeleton h-[140px] rounded-[1rem] bg-tetiary/7 p-[0.8rem] flex flex-col gap-[1rem]"
                             ></div>
                         ))}
                     {!isLoading &&
@@ -123,24 +124,24 @@ export default function Trending() {
                                 <div
                                     style={{ flex: "0 0 auto" }}
                                     key={index}
-                                    className="item w-[400px] rounded-[1rem] bg-tetiary/7 p-[0.8rem] flex flex-col gap-[1rem]"
+                                    className="item w-[360px] rounded-[1rem] bg-tetiary/7 p-[0.8rem] flex flex-col gap-[1rem]"
                                 >
                                     <div className="top w-full flex gap-[1rem] items-center">
-                                        <div className="image flex-shrink-0 size-[80px] bg-secondary/40 rounded-[0.8rem] overflow-hidden">
+                                        <div className="image flex-shrink-0 size-[70px] bg-secondary/40 rounded-[0.5rem] overflow-hidden">
                                             <Image
                                                 src={`${
                                                     item.image
                                                         ? item.image
                                                         : "/images/coins/coin-1.webp"
                                                 }`}
-                                                width={100}
+                                                width={70}
                                                 className="size-full object-cover"
-                                                height={100}
+                                                height={70}
                                                 alt=""
                                             />
                                         </div>
                                         <div className="info w-full overflow-hidden h-full flex flex-col justify-start gap-[0.3rem] ">
-                                            <p className="text-[15px] text-wrap">
+                                            <p className="text-[14px] text-wrap">
                                                 {item.name} ({item.symbol})
                                             </p>
                                             <p className=" desc text-[0.7rem] text-secondary/70 text-wrap">
@@ -148,11 +149,11 @@ export default function Trending() {
                                             </p>
                                         </div>
                                     </div>
-                                    <div className="border border-secondary/10" />
+                                    <div className="border-b border-secondary/10" />
                                     <div className="bottom flex items-center justify-between text-[11] text-secondary/60">
                                         <p>replies: {item.reply_count}</p>
                                         <p className="text-accent/60">
-                                            market cap: $2.1M
+                                            market cap: ${item.market_cap}
                                         </p>
                                     </div>
                                 </div>

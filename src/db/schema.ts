@@ -29,6 +29,7 @@ export const tokens = pgTable("tokens", {
     telegram_url: text("telegram_url"),
     creator_wallet_address: text("creator_wallet_address").notNull(),
     total_supply: numeric("total_supply").notNull(),
+    market_cap: numeric("market_cap").notNull().default("0"),
     created_at: timestamp("created_at").defaultNow(),
     launched_at: timestamp("launched_at").defaultNow(),
     reply_count: numeric("reply_count").default("0"),

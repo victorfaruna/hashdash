@@ -1,7 +1,30 @@
 "use client";
-import React, { useRef, useState } from "react";
+import { searchTokens } from "@/services/token";
+import React, { useEffect, useRef, useState } from "react";
 
 export default function LiveSearch() {
+    const [search, setSearch] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [searchResults, setSearchResults] = useState<any>([]);
+
+    useEffect(() => {
+        async function searchCoins() {
+            try {
+                setIsLoading(true);
+                if (search.length > 0) {
+                    const results = await searchTokens(search);
+                    setSearchResults(results);
+                } else {
+                    setSearchResults([]);
+                }
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+        searchCoins();
+    }, [search]);
     return (
         <div className="flex self-end gap-[1rem]">
             <div className="dropdown dropdown-center">
@@ -23,6 +46,7 @@ export default function LiveSearch() {
 
                     <input
                         tabIndex={0}
+                        onChange={(e) => setSearch(e.target.value)}
                         type="text"
                         className="size-full outline-none border-none"
                         placeholder="Search coin..."
@@ -30,8 +54,16 @@ export default function LiveSearch() {
                 </div>
                 <div
                     tabIndex={0}
-                    className={`dropdown-content w-full bg-primary mt-[0.5rem] rounded-[0.5rem] h-[200px] border border-secondary/30`}
-                ></div>
+                    className={`dropdown-content w-full flex flex-col gap-[1rem] bg-primary mt-[0.5rem] p-[1rem] rounded-[0.5rem] h-[200px] border border-secondary/30`}
+                >
+                    {isLoading && "Loading..."}
+                    {!isLoading && searchResults.length === 0 && "No results"}
+                    {!isLoading &&
+                        searchResults.length > 0 &&
+                        searchResults.map((item: any, index: number) => (
+                            <li className="k list-none">{item.name}</li>
+                        ))}
+                </div>
             </div>
             <button className="text-accent cursor-pointer bg-gradient-to-t from-accent/10 to-primary border border-secondary/30 rounded-[0.4rem] w-[120px] h-[40px]">
                 Search

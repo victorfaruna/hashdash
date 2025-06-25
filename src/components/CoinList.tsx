@@ -10,6 +10,7 @@ type CoinListData = {
     image: string;
     description: string;
     reply_count: number;
+    market_cap: number;
 };
 
 export default function CoinList() {
@@ -47,10 +48,10 @@ export default function CoinList() {
                 <div className="right"></div>
             </div>
             <div
-                className="list grid gap-[var(--main-padding)]"
+                className="list grid gap-[1rem]"
                 style={{
                     gridTemplateColumns:
-                        "repeat(auto-fill, minmax(400px, 1fr))",
+                        "repeat(auto-fill, minmax(370px, 1fr))",
                 }}
             >
                 {(isLoading || isError) &&
@@ -58,7 +59,7 @@ export default function CoinList() {
                         <div
                             style={{ flex: "0 0 auto" }}
                             key={i}
-                            className="item w-[400px] skeleton h-[150px] rounded-[1rem] bg-tetiary/7 p-[0.8rem] flex flex-col gap-[1rem]"
+                            className="item w-full skeleton h-[1550px] rounded-[1rem] bg-tetiary/7 p-[0.8rem] flex flex-col gap-[1rem]"
                         ></div>
                     ))}
                 {!isLoading &&
@@ -70,16 +71,16 @@ export default function CoinList() {
                             className="item w-full rounded-[1rem] bg-secondary/1 border border-secondary/10 p-[0.8rem] flex flex-col gap-[1rem]"
                         >
                             <div className="top w-full flex gap-[1rem] items-center">
-                                <div className="image flex-shrink-0 size-[100px] bg-secondary/40 rounded-[0.8rem] overflow-hidden">
+                                <div className="image flex-shrink-0 size-[90px] bg-secondary/40 rounded-[0.8rem] overflow-hidden">
                                     <Image
                                         src={`${
                                             item.image
                                                 ? item.image
                                                 : "/images/coins/coin-1.webp"
                                         }`}
-                                        width={100}
+                                        width={90}
                                         className="size-full object-cover"
-                                        height={100}
+                                        height={90}
                                         alt=""
                                     />
                                 </div>
@@ -92,11 +93,11 @@ export default function CoinList() {
                                     </p>
                                 </div>
                             </div>
-                            <div className="border border-secondary/10" />
+                            <div className="border-b border-secondary/10" />
                             <div className="bottom flex items-center justify-between text-[11] text-secondary/60">
                                 <p>replies: {item.reply_count}</p>
                                 <p className="text-accent/60">
-                                    market cap: $2.1M
+                                    market cap: ${item.market_cap}
                                 </p>
                             </div>
                         </div>

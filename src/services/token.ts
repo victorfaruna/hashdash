@@ -68,3 +68,14 @@ export const getTokens = async () => {
         throw new Error(error?.response?.data?.message || error.message);
     }
 };
+
+export const searchTokens = async (query: string) => {
+    try {
+        const request = await axiosInstance.get(`/token/search?q=${query}`);
+        const response = request.data;
+        return response.data;
+    } catch (error: Error | AxiosError | any) {
+        console.log(error);
+        throw new Error(error?.response?.data?.message || error.message);
+    }
+};

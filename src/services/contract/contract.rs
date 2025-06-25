@@ -2,7 +2,7 @@ use anchor_lang::prelude::*;
 use anchor_spl::associated_token::AssociatedToken;
 use anchor_spl::token::{self, Mint, Token, TokenAccount, Transfer};
 
-declare_id!("GMTRzthGWTAucZQP9dZpMPr4QwmZ6fqhTgTGyqEh22La");
+declare_id!("FYRqhAz3FAeFTGUxCyE1ZnkEd68EA8BhHNavUbShLrBU");
 
 #[program]
 pub mod hashdash {
@@ -35,7 +35,7 @@ pub mod hashdash {
         state.launch_fee = 1_000_000_000; // 1 SOL in lamports
         state.trading_fee_bps = 30; // 0.3%
         // Mint the full supply to the vault
-        let mint_bump = *ctx.bumps.get("mint_authority").ok_or(ErrorCode::MissingBump)?;
+        let mint_bump = ctx.bumps.mint_authority;
         let bump_slice = [mint_bump];
         let seeds: &[&[&[u8]]] = &[&[b"mint_authority", &bump_slice]];
         let cpi_ctx = CpiContext::new_with_signer(
@@ -105,7 +105,7 @@ pub mod hashdash {
         );
         anchor_lang::system_program::transfer(cpi_context, sol_amount)?;
         // Transfer tokens from vault to user
-        let vault_bump = *ctx.bumps.get("token_vault_authority").ok_or(ErrorCode::MissingBump)?;
+        let vault_bump = ctx.bumps.token_vault_authority;
         let bump_slice = [vault_bump];
         let seeds: &[&[&[u8]]] = &[&[b"token_vault_authority", &bump_slice]];
         let cpi_ctx = CpiContext::new_with_signer(
@@ -220,6 +220,7 @@ pub mod hashdash {
 }
 
 #[derive(Accounts)]
+#[instruction(name: String, symbol: String, decimals: u8, total_supply: Option<u64>)]
 pub struct Initialize<'info> {
     #[account(mut)]
     pub authority: Signer<'info>,
@@ -271,6 +272,7 @@ pub struct Initialize<'info> {
 }
 
 #[derive(Accounts)]
+#[instruction(sol_amount: u64, min_tokens_out: u64)]
 pub struct Buy<'info> {
     #[account(mut)]
     pub state: Account<'info, State>,
@@ -284,6 +286,12 @@ pub struct Buy<'info> {
     pub token_vault: Account<'info, TokenAccount>,
     /// CHECK: PDA authority for minting
     pub mint_authority: UncheckedAccount<'info>,
+    /// CHECK: PDA authority for token vault
+    #[account(
+        seeds = [b"token_vault_authority"],
+        bump
+    )]
+    pub token_vault_authority: UncheckedAccount<'info>,
     /// CHECK: This is the SOL vault (PDA)
     #[account(mut)]
     pub sol_vault: UncheckedAccount<'info>,
