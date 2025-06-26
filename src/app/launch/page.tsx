@@ -3,6 +3,7 @@ import ProgressIndicator from "@/components/Custom/ProgressIndicator";
 import { createToken } from "@/services/token";
 import { useAuthStore } from "@/store/auth";
 import { useCreateCoinStore } from "@/store/create_coin";
+import { useWallet } from "@solana/wallet-adapter-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { Suspense, useState, useCallback, useEffect } from "react";
 
@@ -12,8 +13,8 @@ const MyPage = () => {
     const router = useRouter();
     const currentStep: number | string = useSearchParams().get("step") || 1;
 
+    //Drag and drop image upload logic..............
     const onDrop = useCallback((acceptedFiles: File[]) => {
-        // Do something with the files
         setImage(acceptedFiles[0]);
     }, []);
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -21,16 +22,12 @@ const MyPage = () => {
     });
 
     //...
-    const wallet_address = useAuthStore((state) => state.wallet_address);
+    const { publicKey: wallet_address } = useWallet();
+
     useEffect(() => {
         if (!wallet_address) {
             router.push("/");
         }
-    }, [wallet_address]);
-
-    const [walletAddress, setWalletAddress] = useState(wallet_address);
-    useEffect(() => {
-        setWalletAddress(wallet_address);
     }, [wallet_address]);
 
     //Zustand states............
@@ -71,7 +68,7 @@ const MyPage = () => {
         console.log(useCreateCoinStore.getState());
 
         if (+currentStep == 3) {
-            console.log("WALLET: ", walletAddress);
+            console.log("WALLET: ", wallet_address);
             try {
                 setIsLoading(true);
                 const result = await createToken({
@@ -82,7 +79,7 @@ const MyPage = () => {
                     website_url: coinWebsite || "",
                     x_url: coinXUrl || "",
                     telegram_url: coinTelegramUrl || "",
-                    creator_wallet_address: wallet_address,
+                    creator_wallet_address: wallet_address?.toString()!,
                     total_supply: 1000000000,
                 });
 

@@ -1,22 +1,31 @@
 "use client";
 import { fetchUser } from "@/services/user";
+import { useWallet } from "@solana/wallet-adapter-react";
 import { useQuery } from "@tanstack/react-query";
 import Avatar from "boring-avatars";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 export default function ProfilePage() {
     //...
     const { address } = useParams();
+    const router = useRouter();
 
     //State...
-    const [wallet_address, setWalletAddress] = useState(address as string);
+    const { publicKey: wallet_address } = useWallet();
+    useEffect(() => {
+        if (!wallet_address) {
+            router.push("/");
+        }
+    }, [wallet_address]);
 
     //Query...
     const { data, refetch, isLoading } = useQuery({
         queryKey: ["fetch_user", wallet_address],
-        queryFn: async () => fetchUser(wallet_address),
+        queryFn: async () => fetchUser(wallet_address?.toString()!),
     });
+
+    //redirect if not logged in............
 
     return (
         <div className="w-full h-full flex items-center justify-center">
@@ -34,7 +43,7 @@ export default function ProfilePage() {
                             ) : (
                                 <Avatar
                                     size={120}
-                                    name={wallet_address}
+                                    name={wallet_address?.toString()}
                                     variant="beam"
                                     className="pfp translate-y-[-50%] border-3 border-primary rounded-full"
                                 />

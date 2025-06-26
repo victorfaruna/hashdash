@@ -43,7 +43,7 @@ export default function RandomTokenPair() {
 
             const interval = setInterval(() => {
                 pickRandomPair();
-            }, 1000);
+            }, 500);
 
             return () => clearInterval(interval);
         }
@@ -60,7 +60,7 @@ export default function RandomTokenPair() {
                             index == 0
                                 ? "border-[gold]/20"
                                 : "border-accent-2/20"
-                        } p-[0.3rem] rounded-[0.5rem] flex items-center gap-[1rem] pr-[0.5rem]`}
+                        } p-[0.3rem] rounded-[0.5rem] flex items-center gap-[1rem] pr-[0.5rem] animate-pulse`}
                     >
                         <div
                             className={`ico size-[1.5rem] rounded-sm ${

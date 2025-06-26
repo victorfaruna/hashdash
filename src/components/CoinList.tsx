@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getTokens } from "@/services/token";
 
@@ -14,14 +14,44 @@ type CoinListData = {
 };
 
 export default function CoinList() {
+    const [coinListData, setCoinListData] = React.useState<any[]>([]);
+
+    //fetch data............
     const {
-        data: coinListData,
+        data: coinListDataRaw,
         isLoading,
         isError,
     } = useQuery({
         queryKey: ["coin_list"],
         queryFn: async () => await getTokens(),
     });
+
+    // Shuffle logic...
+    function shuffleArray<T>(array: T[]): T[] {
+        const arr = [...array];
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    useEffect(() => {
+        if (!coinListDataRaw) {
+            setCoinListData([]);
+            return;
+        }
+        // Shuffle immediately on data load
+        setCoinListData(shuffleArray(coinListDataRaw));
+
+        // Set up interval to reshuffle every 1 second
+        const interval = setInterval(() => {
+            setCoinListData(shuffleArray(coinListDataRaw));
+        }, 2000);
+
+        return () => clearInterval(interval);
+    }, [coinListDataRaw]);
+
     return (
         <div className="px-[var(--main-padding)] w-full flex flex-col gap-[var(--main-padding)]">
             <div className="heading">
@@ -101,7 +131,7 @@ export default function CoinList() {
                                 </div>
                             </div>
                             <div className="border-b border-secondary/10" />
-                            <div className="bottom flex items-center justify-between text-[11] text-secondary/60">
+                            <div className="bottom flex items-center justify-between text-[11px] text-secondary/60">
                                 <p>replies: {item.reply_count}</p>
                                 <p className="text-accent/60">
                                     market cap: ${item.market_cap}
