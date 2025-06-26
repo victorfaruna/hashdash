@@ -19,20 +19,21 @@ import "@solana/wallet-adapter-react-ui/styles.css";
 
 const SolanaWallet = ({ children }: { children: React.ReactNode }) => {
     // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
-    const network = WalletAdapterNetwork.Devnet;
+    const network = WalletAdapterNetwork.Mainnet;
 
-    // You can also provide a custom RPC endpoint.
-    const endpoint = useMemo(() => "https://api.devnet.solana.com", []);
+    const endpoint = useMemo(
+        () => process.env.REACT_APP_RPC_ENDPOINT || clusterApiUrl(network),
+        [network]
+    );
 
     const wallets = useMemo(
         () => [
             new PhantomWalletAdapter(),
-            new SolflareWalletAdapter({ network }),
+            new SolflareWalletAdapter(),
             new TorusWalletAdapter(),
             new LedgerWalletAdapter(),
         ],
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [network]
+        []
     );
 
     return (

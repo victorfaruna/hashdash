@@ -59,8 +59,15 @@ export default function CoinList() {
                         <div
                             style={{ flex: "0 0 auto" }}
                             key={i}
-                            className="item w-full skeleton h-[1550px] rounded-[1rem] bg-tetiary/7 p-[0.8rem] flex flex-col gap-[1rem]"
-                        ></div>
+                            className="item w-full flex gap-[1rem] p-[0.8rem] gap-[1rem]"
+                        >
+                            <div className="skeleton size-[90px] rounded-[0.8rem]"></div>
+                            <div className="flex flex-col gap-[0.5rem]">
+                                <p className="skeleton w-[170px] h-[15px]"></p>
+                                <p className="skeleton w-[130px] h-[15px]"></p>
+                                <p className="skeleton w-[100px] h-[10px]"></p>
+                            </div>
+                        </div>
                     ))}
                 {!isLoading &&
                     !isError &&

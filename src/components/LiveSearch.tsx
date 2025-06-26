@@ -1,11 +1,14 @@
 "use client";
 import { searchTokens } from "@/services/token";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 
 export default function LiveSearch() {
     const [search, setSearch] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [searchResults, setSearchResults] = useState<any>([]);
+    const router = useRouter();
 
     useEffect(() => {
         async function searchCoins() {
@@ -54,14 +57,47 @@ export default function LiveSearch() {
                 </div>
                 <div
                     tabIndex={0}
-                    className={`dropdown-content w-full flex flex-col gap-[1rem] bg-primary mt-[0.5rem] p-[1rem] rounded-[0.5rem] h-[200px] border border-secondary/30`}
+                    className={`dropdown-content overflow-y-auto w-full flex flex-col gap-[1rem] bg-primary mt-[0.5rem] p-[1rem] rounded-[0.5rem] max-h-[500px] border border-secondary/30`}
                 >
-                    {isLoading && "Loading..."}
+                    {isLoading &&
+                        Array.from({ length: 5 }).map((_, i) => (
+                            <div
+                                style={{ flex: "0 0 auto" }}
+                                key={i}
+                                className="item w-full flex p-[0.4rem] gap-[0.5rem]"
+                            >
+                                <div className="skeleton size-[50px] rounded-[0.5rem]"></div>
+                                <div className="flex flex-col gap-[0.5rem] pt-1">
+                                    <p className="skeleton w-[100px] h-[10px]"></p>
+                                    <p className="skeleton w-[70px] rounded-1 h-[10px]"></p>
+                                </div>
+                            </div>
+                        ))}
                     {!isLoading && searchResults.length === 0 && "No results"}
                     {!isLoading &&
                         searchResults.length > 0 &&
                         searchResults.map((item: any, index: number) => (
-                            <li className="k list-none">{item.name}</li>
+                            <div
+                                onClick={() =>
+                                    router.push(`/coin/${item.mint_address}`)
+                                }
+                                style={{ flex: "0 0 auto" }}
+                                key={index}
+                                className="item w-full flex p-[0.4rem] gap-[0.5rem] cursor-pointer"
+                            >
+                                <div className="size-[50px] rounded-[0.5rem] overflow-hidden bg-secondary/40">
+                                    <Image
+                                        className="size-full object-cover"
+                                        src={item.image}
+                                        width={50}
+                                        height={50}
+                                        alt=""
+                                    />
+                                </div>
+                                <div className="flex flex-col gap-[0.5rem] pt-[0.1rem]">
+                                    <p className="">{item.name}</p>
+                                </div>
+                            </div>
                         ))}
                 </div>
             </div>
