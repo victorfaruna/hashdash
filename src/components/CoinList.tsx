@@ -81,7 +81,7 @@ export default function CoinList() {
                 className="list grid gap-[1rem]"
                 style={{
                     gridTemplateColumns:
-                        "repeat(auto-fill, minmax(370px, 1fr))",
+                        "repeat(auto-fill, minmax(330px, 1fr))",
                 }}
             >
                 {(isLoading || isError) &&
